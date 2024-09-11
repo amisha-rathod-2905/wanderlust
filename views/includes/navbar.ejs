@@ -1,0 +1,115 @@
+<style>
+  .side-list {
+      background-color: white;
+      border: 0.1px solid whitesmoke;
+      border-radius: 5px;
+      align-content: center;
+      text-align: center;
+      box-shadow: 0.5px 0.5px 0.25px whitesmoke;
+      display: none; /* Initially hidden */
+  }
+  .main{
+    width: 10rem;
+      height: 2rem;
+      margin-top: 1rem;
+     margin-right: 3rem;
+  }
+  a {
+      text-decoration: none;
+      color: black;
+  }
+  .side-list a {
+      display: block;
+      padding-bottom: 0.8rem;
+  }
+  .anchor{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .search{
+    margin-left: 25rem;
+  }
+  .search input{
+    border-radius: 25px;
+    padding: 0.5rem 1rem 0.5rem 1rem
+  }
+  .search-btn{
+    border: hidden;
+    border-radius: 360%;
+    padding: 0.5rem 0.7rem 0.5rem 0;
+    background-color: #fe424d;
+    color: #fff;
+   
+  }
+  .search-btn:hover{
+    background-color: #b0222b;
+  }
+  
+</style>
+
+<nav class="navbar navbar-expand-md border-bottom sticky-top">
+      <a class="navbar-brand" href="/listing"><i class="fa-regular fa-compass"></i></a>
+    
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-link" href="/listing">Explore</a>
+        </div>
+        <div class="search">
+          <form action="/api/search" method="get" class="search-form">
+            <input 
+              type="text" 
+              name="location" 
+              placeholder="Search destination" 
+              class="search-input"
+              required
+            >
+            <button type="submit" class="search-btn">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+          </form>
+          
+        </div>
+      </div>
+     
+      <div class="main"> 
+        <div class="anchor">
+          <a class="nav-link" href="/listing/new">Airbnb your home</a>
+          <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+            <i class="fa fa-bars"></i>
+        </a>         
+      </div><br>
+        <div class="side-list" id="sideList">
+          <% if(!currUser) {%>
+            <a class="nav-link" aria-current="page" href="/signup"><b>Sign Up</b></a>
+            <a class="nav-link" href="/login"><b>LogIn</b></a><hr>
+            <% } %>
+            <a class="nav-link" href="/listing/new">Airbnb your home</a>
+            <% if(currUser) {  %>
+              <a class="nav-link" href="/logout"><b>Log Out</b></a>
+              <% } %>
+        </div>
+   
+  </div>
+
+  </nav>
+
+  <script>
+    function myFunction() {
+        var sideList = document.getElementById("sideList");
+        if (sideList.style.display === "block") {
+            sideList.style.display = "none";
+        } else {
+            sideList.style.display = "block";
+        }
+    }
+
+    document.addEventListener("click", function(event){
+      let sideList = document.getElementById("sideList");
+      let icon = document.querySelector(".icon");
+
+      // Check if the click was outside the icon and side-list
+      if(!sideList.contains(event.target) && !icon.contains(event.target)){
+        sideList.style.display = 'none';
+      }
+    });
+</script>
